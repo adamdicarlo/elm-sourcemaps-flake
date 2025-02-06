@@ -11,10 +11,6 @@ cabal2nix 'https://github.com/avh4/elm-format' --revision '0.8.7' > packages/ghc
 cabal2nix 'https://github.com/stoeffel/elmi-to-json' --revision '1.3.0' > packages/ghc8_10/elmi-to-json/default.nix
 cabal2nix 'https://github.com/ekmett/ansi-wl-pprint' --revision 'v0.6.8.1' > packages/ghc9_6/ansi-wl-pprint/default.nix
 
-# We're building binaries from commit that npm installer is using since
-# November 1st release called 0.19.1-6 in npm registry.
-# These binaries are built with newer ghc version and also support Aarch64 for Linux and Darwin.
-# Upstream git tag for 0.19.1 is still pointing to original commit from 2019.
 cabal2nix https://github.com/Janiczek/elm-sourcemaps --revision 9b4bcadc429cb3e18d7e676472a2ef439cb44144 > packages/ghc9_6/elm/default.nix
 
 echo "need to manually copy registry.dat from an existing elm project"
