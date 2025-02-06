@@ -37,14 +37,11 @@ in
         * Packages which depend on npm installation of elm can be patched using
           `patchNpmElm` function also defined in `packages/lib.nix`.
         */
-        elmLib = let
-          hsElmPkgs = (hs810Pkgs self) // (hs96Pkgs self);
-        in
-          import ./lib {
-            inherit lib;
-            inherit (pkgs) writeScriptBin stdenv;
-            inherit (self) elm;
-          };
+        elmLib = import ./lib {
+          inherit lib;
+          inherit (pkgs) writeScriptBin stdenv;
+          inherit (self) elm;
+        };
 
         elm-json = callPackage ./packages/elm-json {};
 
