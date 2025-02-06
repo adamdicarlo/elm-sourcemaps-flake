@@ -20,7 +20,8 @@ pkgs.haskell.packages.ghc96.override {
         patches = [./0001-Hardcode-sourcemaps-on.patch];
         buildTools = drv.buildTools or [] ++ [makeWrapper];
         postInstall = ''
-          wrapProgram $out/bin/elm-sourcemaps \
+          mv $out/bin/elm-sourcemaps $out/bin/elm
+          wrapProgram $out/bin/elm \
             --prefix PATH ':' ${lib.makeBinPath [nodejs]}
         '';
 
@@ -31,6 +32,7 @@ pkgs.haskell.packages.ghc96.override {
           domenkozar
           turbomack
         ];
+        mainProgram = "elm";
       }) (self.callPackage ./elm {});
 
       inherit fetchElmDeps;
