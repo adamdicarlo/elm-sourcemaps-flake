@@ -17,6 +17,7 @@ pkgs.haskell.packages.ghc96.override {
           elmVersion = drv.version;
           registryDat = ../../registry.dat;
         };
+        patches = [./0001-Hardcode-sourcemaps-on.patch];
         buildTools = drv.buildTools or [] ++ [makeWrapper];
         postInstall = ''
           wrapProgram $out/bin/elm-sourcemaps \
