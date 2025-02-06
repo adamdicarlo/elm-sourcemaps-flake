@@ -1,6 +1,20 @@
-{ mkDerivation, aeson, base, binary, bytestring, containers
-, directory, fetchgit, filepath, ghc-prim, hpack, lib
-, optparse-applicative, text, unliftio, unordered-containers
+{
+  mkDerivation,
+  aeson,
+  base,
+  binary,
+  bytestring,
+  containers,
+  directory,
+  fetchgit,
+  filepath,
+  ghc-prim,
+  hpack,
+  lib,
+  optparse-applicative,
+  text,
+  unliftio,
+  unordered-containers,
 }:
 mkDerivation {
   pname = "elmi-to-json";
@@ -14,12 +28,22 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    aeson base binary bytestring containers directory filepath ghc-prim
-    optparse-applicative text unliftio unordered-containers
+    aeson
+    base
+    binary
+    bytestring
+    containers
+    directory
+    filepath
+    ghc-prim
+    optparse-applicative
+    text
+    unliftio
+    unordered-containers
   ];
-  libraryToolDepends = [ hpack ];
-  executableHaskellDepends = [ base ];
-  testHaskellDepends = [ base ];
+  libraryToolDepends = [hpack];
+  executableHaskellDepends = [base];
+  testHaskellDepends = [base];
   prePatch = "hpack";
   homepage = "https://github.com/stoeffel/elmi-to-json#readme";
   license = lib.licenses.bsd3;
