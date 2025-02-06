@@ -1,0 +1,52 @@
+From 613e7c66ec1c67fa4193d6001c449f5fd3c38d1c Mon Sep 17 00:00:00 2001
+From: Adam DiCarlo <adam@bikko.org>
+Date: Thu, 6 Feb 2025 14:29:28 -0800
+Subject: [PATCH] Hardcode sourcemaps on
+
+---
+ terminal/src/Main.hs | 4 ++--
+ terminal/src/Make.hs | 6 +++++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/terminal/src/Main.hs b/terminal/src/Main.hs
+index df19101..4b8abf7 100644
+--- a/terminal/src/Main.hs
++++ b/terminal/src/Main.hs
+@@ -46,7 +46,7 @@ intro =
+   P.vcat
+     [ P.fillSep
+         ["Hi,","thank","you","for","trying","out"
+-        ,P.green "Elm"
++        ,P.green "Elm with sourcemaps"
+         ,P.green (P.text (V.toChars V.compiler)) <> "."
+         ,"I hope you like it!"
+         ]
+@@ -150,7 +150,7 @@ make =
+       flags Make.Flags
+         |-- onOff "debug" "Turn on the time-travelling debugger. It allows you to rewind and replay events. The events can be imported/exported into a file, which makes for very precise bug reports!"
+         |-- onOff "optimize" "Turn on optimizations to make code smaller and faster. For example, the compiler renames record fields to be as short as possible and unboxes values to reduce allocation."
+-        |-- onOff "sourcemaps" "Add sourcemaps to the resulting JS file. This let's you debug Elm code in a JS debugger, at the cost of longer compile times and a bigger JS file."
++        |-- onOff "sourcemaps" "THIS IS HARDCODED TO ALWAYS BE TURNED ON. Add sourcemaps to the resulting JS file. This let's you debug Elm code in a JS debugger, at the cost of longer compile times and a bigger JS file."
+         |-- flag "output" Make.output "Specify the name of the resulting JS file. For example --output=assets/elm.js to generate the JS at assets/elm.js or --output=/dev/null to generate no output at all!"
+         |-- flag "report" Make.reportType "You can say --report=json to get error messages as JSON. This is only really useful if you are an editor plugin. Humans should avoid it!"
+         |-- flag "docs" Make.docsFile "Generate a JSON file of documentation for a package."
+diff --git a/terminal/src/Make.hs b/terminal/src/Make.hs
+index 28a354d..888e03d 100644
+--- a/terminal/src/Make.hs
++++ b/terminal/src/Make.hs
+@@ -80,7 +80,11 @@ run paths flags@(Flags _ _ _ _ report _) =
+ 
+ 
+ runHelp :: FilePath -> [FilePath] -> Reporting.Style -> Flags -> IO (Either Exit.Make ())
+-runHelp root paths style (Flags debug optimize withSourceMaps maybeOutput _ maybeDocs) =
++runHelp root paths style (Flags debug optimize _ maybeOutput _ maybeDocs) =
++  let
++    withSourceMaps :: Bool
++    withSourceMaps = True
++  in
+   BW.withScope $ \scope ->
+   Stuff.withRootLock root $ Task.run $
+   do  desiredMode <- getMode debug optimize
+-- 
+2.47.1
+
