@@ -11,8 +11,9 @@
     utils.lib.eachDefaultSystem (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        defaultPackage = (pkgs.callPackage (import ./elm) {}).elm;
+      in rec {
+        packages.elm = (pkgs.callPackage (import ./elm) {}).elm;
+        defaultPackage = packages.elm;
       }
     );
 }
